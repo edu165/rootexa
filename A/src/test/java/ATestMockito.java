@@ -18,7 +18,6 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-
 public class ATestMockito {
 	A clase = new A();
 
@@ -28,12 +27,12 @@ private Connection databaseConnection;
  private DatabaseMetaData metadata;
 @Mock
 private ResultSet result;
-
-
 @Test
-public void isAutoIncrement() throws SQLException {
+public void isAutoIncrement() throws SQLException, IOException  {
 	Mockito.when(databaseConnection.getMetaData()).thenReturn(metadata);
 	Mockito.when(metadata.getIndexInfo("", "", "", true, false)).thenReturn(result);
+	Mockito.when(result.getMetaData().isAutoIncrement(0)).thenReturn(Boolean.TRUE);
+	
 	clase.isAutoIncrement(databaseConnection);
 }
 
